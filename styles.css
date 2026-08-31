@@ -59,9 +59,17 @@
     padding: 0;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 body {
@@ -69,6 +77,8 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-main);
     line-height: 1.6;
+    width: 100%;
+    max-width: 100vw;
     overflow-x: hidden;
     min-height: 100vh;
     position: relative;
@@ -193,6 +203,24 @@ a {
     font-family: var(--font-heading);
 }
 
+.nav-logo-wrapper {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    height: 46px;
+}
+
+.nav-logo-img {
+    width: auto;
+    height: 46px;
+    width: 46px;
+    object-fit: contain;
+}
+
+.brand-text {
+    white-space: nowrap;
+}
+
 .logo-badge {
     width: 40px;
     height: 40px;
@@ -296,6 +324,17 @@ a {
     text-align: center;
     position: relative;
     min-height: 90vh;
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+}
+
+.hero-bg-shapes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .glow-sphere {
@@ -1357,15 +1396,17 @@ a {
     position: fixed;
     inset: 0;
     z-index: 2000;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
+    padding: 16px;
 }
 
 .modal.active {
+    display: flex;
     opacity: 1;
     pointer-events: auto;
 }
@@ -1373,19 +1414,70 @@ a {
 .modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .modal-content {
     position: relative;
-    width: 90%;
+    width: 100%;
     max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
     background: var(--bg-dark);
     border: 1px solid var(--border-glass);
     border-radius: var(--radius-lg);
     padding: 28px;
     box-shadow: var(--shadow-card-3d);
+}
+
+.modal-logo-content {
+    max-width: 520px;
+    text-align: center;
+}
+
+.modal-logo-stage {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border-glass);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-logo-hd {
+    max-width: 100%;
+    max-height: 280px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.modal-logo-info h4 {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+}
+
+.modal-logo-info p {
+    color: var(--accent-gold);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.modal-logo-info small {
+    color: var(--text-muted);
+    display: block;
+    margin-top: 6px;
+    font-size: 0.8rem;
+}
+
+.modal-logo-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .modal-header {
@@ -1485,6 +1577,47 @@ a {
 }
 
 /* Responsive Media Queries */
+
+/* ===== Logo sizes (image logos are 1024px native; constrain to avoid overflow) ===== */
+.footer-logo-box {
+    display: inline-flex;
+    align-items: center;
+}
+.footer-logo-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+
+.logo-display-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo-spotlight-img {
+    width: 230px;
+    height: 230px;
+    object-fit: contain;
+}
+
+.card-logo-img {
+    width: 128px;
+    height: 128px;
+    object-fit: contain;
+}
+
+.qr-logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.modal-logo-hd {
+    width: 320px;
+    height: 320px;
+    object-fit: contain;
+}
+
 @media (max-width: 992px) {
     .about-card-main {
         grid-template-columns: 1fr;
@@ -1501,12 +1634,23 @@ a {
     .contact-wrapper {
         grid-template-columns: 1fr;
     }
+    .logo-spotlight-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .logo-display-box {
+        max-width: 240px;
+        margin: 0 auto;
+    }
+    .logo-actions-group {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 768px) {
     .nav-menu {
         position: fixed;
-        top: 80px;
+        top: 70px;
         left: 0;
         right: 0;
         background: var(--bg-nav);
@@ -1536,18 +1680,8 @@ a {
         font-size: 2.2rem;
     }
 
-    .card-3d {
-        height: 380px;
-    }
-
-    .card-profile-block {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
     .card-actions {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .art-cta-box {
@@ -1559,3 +1693,187 @@ a {
         grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 480px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+    }
+    
+    .container {
+        padding: 0 14px;
+    }
+
+    .hero-section {
+        padding: 100px 14px 40px 14px;
+    }
+
+    .hero-title {
+        font-size: 1.85rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .card-3d-wrapper {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 24px;
+    }
+
+    .card-3d {
+        height: auto;
+        min-height: 430px;
+    }
+
+    .card-face {
+        padding: 18px 14px;
+    }
+
+    .card-profile-block {
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .avatar-container {
+        width: 60px;
+        height: 60px;
+    }
+
+    .profile-meta .card-name {
+        font-size: 1.2rem;
+    }
+
+    .card-role {
+        font-size: 0.8rem;
+    }
+
+    .ceo-badge {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+    }
+
+    .contact-pill {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        min-width: 0;
+    }
+
+    .contact-pill span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: break-all;
+        min-width: 0;
+    }
+
+    .card-actions {
+        flex-direction: row;
+        gap: 6px;
+    }
+
+    .btn-action {
+        padding: 8px 8px;
+        font-size: 0.78rem;
+    }
+
+    .hero-actions-bar {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .btn-hero-main, .btn-hero-outline {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+
+    .logo-spotlight-card {
+        grid-template-columns: 1fr;
+        padding: 20px 14px;
+        text-align: center;
+    }
+
+    .logo-display-box {
+        max-width: 220px;
+        margin: 0 auto;
+    }
+
+    .logo-spotlight-img {
+        width: 160px;
+        height: 160px;
+    }
+
+    .logo-actions-group {
+        justify-content: center;
+    }
+
+    .art-banner-container {
+        height: 220px;
+    }
+
+    .art-banner-overlay {
+        padding: 16px;
+    }
+
+    .art-banner-overlay h3 {
+        font-size: 1.3rem;
+    }
+
+    .art-banner-overlay p {
+        font-size: 0.85rem;
+    }
+
+    .modal-logo-hd {
+        width: 200px;
+        height: 200px;
+    }
+
+    .stats-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 16px;
+        min-width: 0;
+    }
+
+    .art-pillars-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .contact-box {
+        padding: 14px;
+        gap: 10px;
+        min-width: 0;
+    }
+
+    .contact-box-details {
+        min-width: 0;
+    }
+
+    .box-value {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+
+    .contact-form-card {
+        padding: 18px 14px;
+    }
+
+    .quick-contact-actions {
+        flex-direction: column;
+    }
+
+    .quick-contact-actions .quick-btn {
+        width: 100%;
+    }
+}
+

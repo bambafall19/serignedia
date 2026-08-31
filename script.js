@@ -420,3 +420,21 @@ function initAmbientCanvas() {
         }
     });
 }
+
+/* 11. Logo Modal Lightbox */
+function openLogoModal() {
+    const modal = document.getElementById('logo-modal');
+    if (modal) {
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+    }
+}
+
+function closeLogoModal() {
+    const modal = document.getElementById('logo-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+    }
+}
+

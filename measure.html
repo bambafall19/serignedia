@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measure</title>
+<style>
+#out { font: 13px/1.5 monospace; white-space: pre; }
+</style>
+</head>
+<body>
+<iframe id="f" src="/" style="width:390px;height:20000px;border:0"></iframe>
+<pre id="out">running...</pre>
+<script>
+  function measure() {
+    try {
+      var d = document.getElementById('f').contentDocument;
+      var w = d.documentElement.scrollWidth;
+      var cw = d.documentElement.clientWidth;
+      var lines = [];
+      lines.push('documentElement.scrollWidth=' + w);
+      lines.push('documentElement.clientWidth=' + cw);
+      lines.push('body.scrollWidth=' + d.body.scrollWidth);
+      lines.push('HORIZONTAL OVERFLOW = ' + (w > cw ? w - cw : 0) + 'px');
+      lines.push('--- elements wider than viewport (390px) ---');
+      var els = d.querySelectorAll('*');
+      for (var i = 0; i < els.length; i++) {
+        var r = els[i].getBoundingClientRect();
+        var ew = r.right - r.left;
+        if (r.right > 391 || r.left < -1) {
+          var cls = els[i].className || els[i].tagName;
+          lines.push(cls + ' | left=' + Math.round(r.left) + ' right=' + Math.round(r.right) + ' w=' + Math.round(ew));
+        }
+      }
+      document.getElementById('out').textContent = lines.join('\n');
+    } catch (e) { document.getElementById('out').textContent = 'ERR: ' + e.message; }
+  }
+  window.addEventListener('load', function(){ setTimeout(measure, 1500); });
+</script>
+</body>
+</html>
