@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSound } from './hooks/useSound.jsx';
 import ScrollProgress from './components/ScrollProgress';
 import Hero from './components/Hero';
@@ -18,7 +18,8 @@ function App() {
             return 'dark';
         }
     });
-    const { click, click: soundClick, enabled, toggle: toggleSound } = useSound();
+    const { click, enabled, toggle, section } = useSound();
+    const seenSections = useRef(new Set());
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
@@ -26,6 +27,20 @@ function App() {
             localStorage.setItem('smd_theme', theme);
         } catch { /* ignore */ }
     }, [theme]);
+
+    useEffect(() => {
+        const els = document.querySelectorAll('section.section');
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && !seenSections.current.has(entry.target.id)) {
+                    seenSections.current.add(entry.target.id);
+                    section();
+                }
+            });
+        }, { threshold: 0.35 });
+        els.forEach((el) => obs.observe(el));
+        return () => obs.disconnect();
+    }, [section]);
 
     const toggleTheme = () => {
         click();
@@ -46,7 +61,7 @@ function App() {
                 </button>
                 <button
                     className={`theme-toggle sound-toggle${enabled ? '' : ' muted'}`}
-                    onClick={() => { soundClick(); toggleSound(); }}
+                    onClick={() => { click(); toggle(); }}
                     aria-label={enabled ? 'Couper le son' : 'Activer le son'}
                     title={enabled ? 'Couper le son' : 'Activer le son'}
                 >

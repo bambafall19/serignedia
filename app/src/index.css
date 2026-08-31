@@ -315,3 +315,50 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--cyan); outline-
 
 /* ============ HERO ORB WRAP (parallax parent) ============ */
 .hero-orb-wrap { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
+
+/* ============ SIGNATURE ============ */
+.signature {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: var(--violet);
+    margin-top: 8px;
+    opacity: 0.85;
+}
+
+/* ============ VOLUME SLIDER ============ */
+.volume-slider {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 6px;
+    height: 110px;
+    border-radius: 999px;
+    background: var(--border);
+    writing-mode: vertical-lr;
+    direction: rtl;
+    cursor: pointer;
+    padding: 0;
+}
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--violet), var(--cyan));
+    border: 2px solid var(--surface);
+    cursor: pointer;
+}
+.volume-slider::-moz-range-thumb {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--violet), var(--cyan));
+    border: 2px solid var(--surface);
+    cursor: pointer;
+}
+.volume-slider::-webkit-slider-runnable-track {
+    background: var(--border);
+    border-radius: 999px;
+    width: 6px;
+}
+.float-actions { align-items: center; }
+.volume-slider { margin: 2px auto; }
+
+/* ============ SIGNATURE ============ */

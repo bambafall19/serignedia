@@ -9,6 +9,7 @@ export default function Footer() {
                 <a href={`tel:${CONTACT.phone}`} title="Téléphone"><i className="fa-solid fa-phone"></i></a>
             </div>
             <p>© 2026 Serigne Mbacké Dia · CEO ARTAVECMOI</p>
+            <p className="signature">— {CONTACT.creator}</p>
             <p style={{ marginTop: 6 }}>Thiès Khombole, Keur Macodou · Sénégal</p>
         </footer>
     );

@@ -1,5 +1,6 @@
 export const CONTACT = {
     name: "Serigne Mbacké Dia",
+    creator: "Mouhamadou Bamba",
     phone: "781838701",
     phoneIntl: "+221781838701",
     phoneDisplay: "+221 78 183 87 01",
